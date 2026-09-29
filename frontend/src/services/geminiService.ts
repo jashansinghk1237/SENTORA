@@ -1,4 +1,10 @@
-﻿import { JournalAnalysisResponse } from "../types";
+import { JournalAnalysisResponse } from "../types";
+
+// Base API URL:
+// In production unified mode (Render single-service) or local dev proxy, defaults to "/api".
+// In decoupled mode (e.g. Vercel frontend + Render backend), reads VITE_API_BASE_URL.
+const rawApiBase = (import.meta.env.VITE_API_BASE_URL || "").trim().replace(/\/$/, "");
+const API_BASE = rawApiBase ? (rawApiBase.endsWith("/api") ? rawApiBase : `${rawApiBase}/api`) : "/api";
 
 export const geminiApiService = {
   async analyzeJournal(text: string): Promise<JournalAnalysisResponse> {
@@ -7,7 +13,7 @@ export const geminiApiService = {
     }
 
     try {
-      const response = await fetch("/api/analyze-journal", {
+      const response = await fetch(`${API_BASE}/analyze-journal`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +38,7 @@ export const geminiApiService = {
 
   async getHealth(): Promise<{ status: string; gemini: { configured: boolean; model: string } }> {
     try {
-      const response = await fetch("/api/health");
+      const response = await fetch(`${API_BASE}/health`);
       if (!response.ok) throw new Error("Health check failed");
       return await response.json();
     } catch (err: any) {

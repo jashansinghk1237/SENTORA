@@ -1,4 +1,4 @@
-﻿# SENTORA: A Privacy-First, Voice-First AI Journaling Application
+# SENTORA: A Privacy-First, Voice-First AI Journaling Application
 
 > **University Final-Year / Capstone Project**  
 > **Topic:** Privacy-Preserving Intelligent Voice Systems & Human-Computer Interaction  
@@ -122,7 +122,24 @@ npm run dev
 
 ---
 
-## 🛠️ 4. Technology Stack & API Justification
+## 🌐 4. Free Cloud Deployment (Zero Ollama Required)
+
+Sentora is engineered to be **100% free ($0/month)** to deploy on modern cloud hosting without needing Ollama, Docker, or expensive GPUs.
+
+### Why Sentora Requires No Ollama:
+- **Zero Local Model Overhead:** Sentora connects directly to the **Google Gemini API (`gemini-1.5-flash`)** from the backend. The server uses under **100MB RAM**, fitting comfortably into free cloud tiers (like Render's 512MB free tier).
+- **Intelligent Fallback Engine:** If an API key is not supplied, the backend uses a local rule-based heuristic emotion analysis engine so the app remains fully functional.
+- **Client-Side Storage:** Journal entries, voice recordings, and transcripts stay 100% inside the user's browser **IndexedDB (Dexie.js)**. No external database subscription is needed.
+
+👉 **Read the complete step-by-step guide in [DEPLOYMENT.md](file:///e:/SENTORA/Sentora/DEPLOYMENT.md)** covering:
+- **1-Click Free Deployment on Render.com** (Single service for both React frontend and Express backend)
+- **Decoupled Deployment** (Vercel Frontend + Render Backend)
+- **Docker & Docker Compose** (Single-command VPS launch)
+- **Free Google Gemini API Key Setup** (No credit card needed)
+
+---
+
+## 🛠️ 5. Technology Stack & API Justification
 
 | Technology | Layer | Purpose / Justification |
 | :--- | :--- | :--- |
@@ -138,7 +155,7 @@ npm run dev
 
 ---
 
-## 🔍 5. Smart Hybrid Search Engine
+## 🔍 6. Smart Hybrid Search Engine
 
 Sentora features an intelligent **local memory search engine** (`frontend/src/services/searchService.ts`) that runs entirely within the client:
 
@@ -159,7 +176,7 @@ The engine dynamically expands queries like:
 
 ---
 
-## 📊 6. Insights & Mood Trends Mapping
+## 📊 7. Insights & Mood Trends Mapping
 
 The Insights dashboard maps qualitative emotion classifications to a visual numeric scale (1–9) for time-series visualization:
 
@@ -178,7 +195,7 @@ The Insights dashboard maps qualitative emotion classifications to a visual nume
 
 ---
 
-## 🎓 7. Viva / Academic Defense Q&A
+## 🎓 8. Viva / Academic Defense Q&A
 
 **Q1: Why did you choose IndexedDB over a cloud database like MongoDB or Firebase?**  
 **A:** Personal voice journals contain sensitive, private reflections. By storing audio blobs and transcripts locally in IndexedDB, Sentora guarantees that the user's journal history never leaves their personal device.

@@ -1,0 +1,28 @@
+# ===================================================================
+# Render.com Blueprint Deployment Configuration (100% FREE TIER)
+# ===================================================================
+# This single web service builds the React frontend, builds the Express
+# backend, and runs both seamlessly on a single free Render URL.
+#
+# No Ollama, no Docker, and no paid database needed!
+# ===================================================================
+
+services:
+  - type: web
+    name: sentora-app
+    env: node
+    plan: free
+    region: oregon # or frankfurt, ohio, singapore
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_MODEL
+        value: gemini-1.5-flash
+      - key: GEMINI_API_KEY
+        sync: false # Set securely in the Render Dashboard
+      - key: CORS_ORIGIN
+        value: "*"
